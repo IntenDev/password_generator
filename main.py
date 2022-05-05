@@ -1,16 +1,40 @@
-# This is a sample Python script.
+from random import choice
 
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
+DIGITS = '0123456789'
+LOWERCASE_LETTERS = 'abcdefghijklmnopqrstuvwxyz'
+UPPERCASE_LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+PUNCTUATION = '!#$%&*+-=?@^_'
+
+chars = ''
+res_chars = ''
+sum_pwd = int(input('Сколько паролей сгенирировать? (цифрами) - '))
+len_pwd = int(input('Длинна одного пароля (цифрами) - '))
+add_numbers = input('Включать ли цифры? (Да/Нет) - ')
+add_uppers_letters = input('Включать ли прописные буквы? (Да/Нет) - ')
+add_lowers_letters = input('Включать ли строчные буквы? (Да/Нет) - ')
+add_simbols = input('Включать ли символы? (Да/Нет) - ')
+del_ambiguous_symbols = input('Исключать ли неоднозначные символы - "il1Lo0O"? (Да/Нет) - ')
+
+if add_numbers.lower() == 'да':
+    chars += DIGITS
+if add_uppers_letters.lower() == 'да':
+    chars += UPPERCASE_LETTERS
+if add_lowers_letters.lower() == 'да':
+    chars += LOWERCASE_LETTERS
+if add_simbols.lower() == 'да':
+    chars += PUNCTUATION
+if del_ambiguous_symbols.lower() == 'да':
+    for i in range(len(chars)):
+        if chars[i] not in 'il1Lo0O':
+            res_chars += chars[i]
+else:
+    res_chars = chars
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
+def generate_password(length, char):
+    password = ''.join(choice(char) for _ in range(length))
+    return password
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+for _ in range(sum_pwd):
+    print(generate_password(len_pwd, res_chars))
